@@ -41,6 +41,25 @@
           </draggable>
         </div>
 
+        <div class="col-2" style="background: purple">
+          <h3 class="q-pa-sm">inProgress</h3>
+          <draggable
+            class="list-group kanban-column"
+            :list="testing"
+            group="tasks"
+            ghostClass="on-drag"
+            animation="400"
+          >
+            <q-card
+              class="cursor q-pa-md q-mt-xs"
+              v-for="todo in testing"
+              :key="todo.id"
+            >
+              {{ todo.todo }}
+            </q-card>
+          </draggable>
+        </div>
+
         <div class="col-2" style="background: pink">
           <h3 class="q-pa-sm">completed</h3>
           <draggable
@@ -96,6 +115,7 @@ export default {
           todo: "learn vue",
         }, */
       ],
+      testing: [],
       completed: [
         /*         {
           id: 5,
@@ -118,6 +138,11 @@ export default {
               id: change.doc.id,
               ...change.doc.data(),
             });
+          } else if (change.doc.data().status === "TESTING") {
+            this.testing.push({
+              id: change.doc.id,
+              ...change.doc.data(),
+            });
           } else {
             this.inProgress.push({
               id: change.doc.id,
@@ -129,8 +154,8 @@ export default {
     });
   },
   watch: {
-    todos(value){
-      value.map(todo => {
+    todos(value) {
+      value.map((todo) => {
         this.db.doc(todo.id).update({
           status: "TODO",
           todo: todo.todo,
@@ -138,15 +163,23 @@ export default {
       });
     },
     inProgress(value) {
-      value.map(todo => {
+      value.map((todo) => {
         this.db.doc(todo.id).update({
           status: "IN_PROGRESS",
           todo: todo.todo,
         });
       });
     },
+    testing(value) {
+      value.map((todo) => {
+        this.db.doc(todo.id).update({
+          status: "TESTING",
+          todo: todo.todo,
+        });
+      });
+    },
     completed(value) {
-      value.map(todo => {
+      value.map((todo) => {
         this.db.doc(todo.id).update({
           status: "COMPLETED",
           todo: todo.todo,
@@ -156,7 +189,7 @@ export default {
   },
   computed: {
     db() {
-      return firebase.firestore().collection('todos');
+      return firebase.firestore().collection("todos");
     },
   },
 };
