@@ -12,7 +12,7 @@
         />
 
         <q-toolbar-title>{{ $route.name }} </q-toolbar-title>
-        <q-toolbar-title>{{username}} </q-toolbar-title>
+      
 
         <q-toolbar-title class="text-right">
           Logged in &bull;
