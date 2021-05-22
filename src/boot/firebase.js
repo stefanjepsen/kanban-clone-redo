@@ -63,8 +63,7 @@ export const useLoadUsers = () => {
   return users
 }
 
-var messageRef = db.collection('projects').doc('tasks')
-                .collection('messages').doc('message1');
+
 
 
 

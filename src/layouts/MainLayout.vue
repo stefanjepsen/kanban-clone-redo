@@ -12,7 +12,7 @@
         />
 
         <q-toolbar-title>{{ $route.name }} </q-toolbar-title>
-        <q-toolbar-title>{{  }} </q-toolbar-title>
+        <q-toolbar-title>{{username}} </q-toolbar-title>
 
         <q-toolbar-title class="text-right">
           Logged in &bull;
@@ -115,6 +115,15 @@
             >Test Board Page</q-item-section
           >
         </q-item>
+
+        <q-item to="/TestingPurpose" clickable v-ripple exact>
+          <q-item-section avatar>
+            <q-icon name="lightbulb" class="lightbulb" size="sm" />
+          </q-item-section>
+          <q-item-section class="text-h6 text-weight-bold"
+            >Test Board Page</q-item-section
+          >
+        </q-item>
       </q-list>
     </q-drawer>
 
@@ -126,23 +135,17 @@
 
 <script>
 import { db, auth } from "../boot/firebase";
-
 import firebase from "firebase";
 import "firebase/auth";
 export default {
   name: "MainLayout",
-
   created() {
     firebase.auth().onAuthStateChanged((user) => {
       //this.loggedIn = !!user;
-
-
-/*       if (user) {
+      if (user) {
         this.loggedIn = true;
         var user = firebase.auth().currentUser;
-
         var docRef = db.collection("users").doc(user.uid);
-
         docRef.get().then((doc) => {
           if (doc.exists) {
             console.log("Document data:", doc.data());
@@ -153,9 +156,8 @@ export default {
         });
       } else {
         this.loggedIn = false;
-      } */
+      }
     });
-    
   },
   data() {
     return {
@@ -164,7 +166,6 @@ export default {
       signedOut: false,
     };
   },
-
   methods: {
     async signOut() {
       try {

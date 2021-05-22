@@ -35,6 +35,11 @@ const routes = [{
         component: () => import('src/pages/TestPage.vue')
       },
       {
+        path: '/TestingPurpose',
+        name: 'TestingPurpose',
+        component: () => import('src/pages/TestingPurpose.vue')
+      },
+      {
         path: '/Secret',
         meta: {
           requiresAuth: true

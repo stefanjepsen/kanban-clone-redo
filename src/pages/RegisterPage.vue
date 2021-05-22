@@ -125,7 +125,7 @@ export default {
         })
         .then(() => {
           console.log("It works" + ' ' + this.username);
-          // this.$router.replace({ name: "Secret" });
+          this.$router.replace({ name: "Secret" });
         })
         .catch((error) => (this.error = error));
     },

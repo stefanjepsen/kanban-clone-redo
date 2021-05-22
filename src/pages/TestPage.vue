@@ -222,6 +222,7 @@ export default {
         hoursAllocated: this.hoursAllocated,
         date: Date.now(),
         tasks: this.tasks,
+        // userSpecificID: this.currentUSerID
       };
 
       db.collection("projects")
