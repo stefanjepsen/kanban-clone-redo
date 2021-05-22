@@ -1,5 +1,20 @@
 <template>
   <q-page>
+    <div class="row q-mb-lg">
+      <div class="col-10 offset-2">
+        <h4>Project name</h4>
+        <q-input
+          style="max-width: 500px"
+          v-model="newTask"
+          required
+          placeholder="Enter Task"
+          @keyup.enter="addNewTodo"
+        ></q-input>
+
+        <q-btn @click="addNewTodo" color="primary" class="ml-3">Add</q-btn>
+      </div>
+    </div>
+
     <div class="col-10 offset-2">
       <div class="row q-gutter-xl justify-center">
         <div class="col-2" style="background: grey">
@@ -23,7 +38,7 @@
         </div>
 
         <div class="col-2" style="background: lightblue">
-          <h3 class="q-pa-sm">inProgress</h3>
+          <h3 class="q-pa-sm">In progress</h3>
           <draggable
             class="list-group kanban-column"
             :list="inProgress"
@@ -42,7 +57,7 @@
         </div>
 
         <div class="col-2" style="background: purple">
-          <h3 class="q-pa-sm">inProgress</h3>
+          <h3 class="q-pa-sm">Testing</h3>
           <draggable
             class="list-group kanban-column"
             :list="testing"
@@ -95,6 +110,7 @@ export default {
   },
   data() {
     return {
+      newTask: "",
       todos: [
         /*     {
           id: 1,
@@ -190,6 +206,24 @@ export default {
   computed: {
     db() {
       return firebase.firestore().collection("todos");
+    },
+  },
+  methods: {
+    addNewTodo() {
+      let newTodo = {
+        todo: this.newTask,
+        status: "TODO",
+      };
+      db.collection("todos")
+        .add(newTodo)
+        .then(function (docRef) {
+          console.log("TODO LAVET: ", docRef.id);
+          console.log(newTodo);
+        })
+        .catch(function (error) {
+          console.error("Error adding document: ", error);
+        });
+      this.newTask = "";
     },
   },
 };
