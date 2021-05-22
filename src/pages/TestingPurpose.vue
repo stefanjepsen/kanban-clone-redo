@@ -28,7 +28,8 @@
             animation="400"
           >
             <q-card
-              class="cursor q-pa-md q-mt-xs"
+             
+              class="cursor q-pa-md q-mt-xs "
               v-for="todo in todos"
               :key="todo.id"
             >
@@ -47,7 +48,7 @@
             animation="400"
           >
             <q-card
-              class="cursor q-pa-md q-mt-xs"
+              class="cursor q-pa-md q-mt-xs "
               v-for="todo in inProgress"
               :key="todo.id"
             >
@@ -237,6 +238,16 @@ export default {
 .on-drag {
   background-color: #ffd8c8;
   color: black;
-  z-index: 10;
+ 
+}
+
+.kanban-column {
+  min-height: 500px;
+  z-index: 1;
+  min-width: 3vw;
+}
+
+.q-card {
+  width: auto !important;
 }
 </style>
