@@ -1,80 +1,77 @@
 <template>
   <q-page>
-    <!-- page content -->
-
-    <div class="q-pa-md row">
-      <div class="col-8 offset-2">
- 
-
-        <div class="row q-gutter-xs">
-          
-          <div  class="col-3 offset-1">
-            <transition
-              appear
-              enter-active-class="animated fadeIn slow"
-              leave-active-class="animated fadeOut slow"
-            >
-              <q-card dark bordered class="bg-grey-9 my-card">
-                <q-card-section>
-                  <div class="">{{  }}</div>
-                  <div class="text-subtitle2">by John Doe</div>
-                </q-card-section>
-
-                <q-separator dark inset />
-
-              </q-card>
-            </transition>
-          </div>
-          <div  class="col-3 offset-1">
-            <transition
-              appear
-              enter-active-class="animated fadeIn slow"
-              leave-active-class="animated fadeOut slow"
-            >
-              <q-card dark bordered class="bg-grey-9 my-card">
-                <q-card-section>
-                  <div class="">{{  }}</div>
-                  <div class="text-subtitle2">by John Doe</div>
-                </q-card-section>
-
-                <q-separator dark inset />
-
-              </q-card>
-            </transition>
-          </div>
-          <div  class="col-3 offset-1">
-            <transition
-              appear
-              enter-active-class="animated fadeIn slow"
-              leave-active-class="animated fadeOut slow"
-            >
-              <q-card dark bordered class="bg-grey-9 my-card">
-                <q-card-section>
-                  <div class="">{{  }}</div>
-                  <div class="text-subtitle2">by John Doe</div>
-                </q-card-section>
-
-                <q-separator dark inset />
-
-              </q-card>
-            </transition>
-          </div>
-        </div>
-      </div>
+    <div v-if="posts.length">
+      <q-card v-for="post in posts" :key="post.id">
+        <h4>{{ post.name }}</h4>
+        <p>{{ post.description }}</p>
+        <ul>
+          <li>comments {{ post.tasks }}</li>
+        </ul>
+        <router-link
+          class="link"
+          :to="{ path: '/goodbye', query: { name: post.name, description: post.description } }"
+          >Say goodbye</router-link
+        >
+        <br />
+     
+      </q-card>
     </div>
-    <div class="q-pa-md row q-gutter-md"></div>
+    <div v-else>
+      <p>There are currently no posts</p>
+    </div>
   </q-page>
 </template>
 
 <script>
-
-
+import firebase from "firebase";
+import { db, auth, museums } from "../boot/firebase";
 export default {
-  name: "Board",
- 
+  data() {
+    return {
+      projects: [],
+      posts: [],
+    };
+  },
+  methods: {
+    getPosts: function () {
+      db.collectionGroup("projects")
+        .where("projCreator", "==", "kk@live.dkk")
+        .onSnapshot((querySnapshot) => {
+          let postsArray = [];
+
+          querySnapshot.forEach((doc) => {
+            let post = doc.data();
+            post.id = doc.id;
+            postsArray.push(post);
+          });
+
+          this.posts = postsArray;
+        });
+    },
+  },
+  beforeMount() {
+    this.getPosts();
+  },
+  mounted() {
+    /*         db.collection("projects").doc('facebook')
+      .then((snap) => {
+        const projects = [];
+        snap.forEach((doc) => {
+          projects.push({ [doc.id]: doc.get("tasks") });
+        });
+        this.projects = projects;
+        console.log(projects)
+      });  */
+    /*     db.collection("projects")
+      .doc("facebook")
+      .onSnapshot((doc) => {
+        console.log("Current data: ", doc.data());
+      }); */
+  },
 };
 </script>
 
-<style>
-
+<style lang="scss">
 </style>
+
+export const dbMenuAdd = db.collection('menuItems');

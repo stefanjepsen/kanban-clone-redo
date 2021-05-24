@@ -12,7 +12,6 @@
         />
 
         <q-toolbar-title>{{ $route.name }} </q-toolbar-title>
-      
 
         <q-toolbar-title class="text-right">
           Logged in &bull;
@@ -142,16 +141,16 @@ export default {
   created() {
     firebase.auth().onAuthStateChanged((user) => {
       //this.loggedIn = !!user;
+
       if (user) {
         this.loggedIn = true;
-        var user = firebase.auth().currentUser;
-        var docRef = db.collection("users").doc(user.uid);
+        let user = firebase.auth().currentUser;
+        var docRef = db.collection("users").doc(user.email);
         docRef.get().then((doc) => {
           if (doc.exists) {
             console.log("Document data:", doc.data());
           } else {
             // doc.data() will be undefined in this case
-            console.log("No such document!");
           }
         });
       } else {

@@ -1,19 +1,29 @@
 <template>
   <q-page>
-    <div class="row q-mb-lg">
+    <div class="row q-gutter-xl">
       <div class="col-10 offset-2">
-        <h4>Project name</h4>
-        <q-input
-          style="max-width: 500px"
-          v-model="newTask"
-          required
-          placeholder="Enter Task"
-          @keyup.enter="addNewTodo"
-        ></q-input>
-
-        <q-btn @click="addNewTodo" color="primary" class="ml-3">Add</q-btn>
+        <h5>Project Name:</h5>
+        <h4>{{ projectName }}</h4>
       </div>
     </div>
+
+    <div class="row q-gutter-xl">
+      <div class="col-10 offset-2">
+        <q-card class="q-card-input q-pa-xl">
+          <q-input
+            style="max-width: 500px"
+            v-model="newTask"
+            required
+            placeholder="Enter Task"
+            @keyup.enter="addNewTodo"
+          ></q-input>
+          <br />
+          <q-btn @click="addNewTodo" color="primary" class="ml-3">Add</q-btn>
+        </q-card>
+      </div>
+    </div>
+    <br />
+    <br />
 
     <div class="col-10 offset-2">
       <div class="row q-gutter-xl justify-center">
@@ -108,6 +118,22 @@ export default {
     draggable,
     firebase,
   },
+
+  props: {
+    name: {
+      type: String,
+    },
+    description: {
+      type: String,
+    },
+  },
+  //["name", "description"],
+
+  computed: {
+    projectName() {
+      return this.name;
+    },
+  },
   data() {
     return {
       newTask: "",
@@ -151,8 +177,16 @@ export default {
     });
   },
   mounted() {
+    let projName = this.name;
+    var cake = db.collectionGroup("projects").where("name", "==", projName);
+    cake.get().then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        console.log("dette er den rigtige " + doc.id, " => ", doc.data());
+      });
+    });
+
     db.collection("todos")
-      .where("belongToProject", "==", "trello")
+      .where("belongToProject", "==", this.name)
       .onSnapshot((snapshot) => {
         snapshot.docChanges().forEach((change) => {
           if (change.type === "added") {
@@ -215,17 +249,13 @@ export default {
       });
     },
   },
-  computed: {
-    /*     db() {
-      return firebase.firestore().collection("todos");
-    }, */
-  },
+
   methods: {
     addNewTodo() {
       let newTodo = {
         todo: this.newTask,
         status: "TODO",
-        belongToProject: "this.name",
+        belongToProject: this.name,
       };
       db.collection("todos")
         .add(newTodo)
@@ -260,5 +290,9 @@ export default {
 
 .q-card-todo {
   width: auto !important;
+}
+
+.q-card-input {
+  max-width: 80% !important;
 }
 </style>

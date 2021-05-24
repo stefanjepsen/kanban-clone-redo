@@ -26,9 +26,9 @@
               <q-input
                 square
                 clearable
-                v-model="username"
-                type="username"
-                label="Username"
+                v-model="displayName"
+                type="displayName"
+                label="displayName"
                 required
               >
                 <template v-slot:prepend>
@@ -99,7 +99,7 @@ export default {
     return {
       email: "",
       password: "",
-      username: "",
+      displayName: "",
       error: "",
     };
   },
@@ -118,18 +118,25 @@ export default {
       firebase
         .auth()
         .createUserWithEmailAndPassword(this.email, this.password)
+
         .then((cred) => {
-          return db.collection("users").doc(cred.user.uid).set({
-            username: this.username,
+          return db.collection("users").doc(this.email).set({
+            displayName: this.displayName,
           });
         })
+        /* .then((cred) => {
+          let user = firebase.auth().currentUser;
+          user.updateProfile({
+            displayName: this.displayName,
+            photoURL: "https://example.com/jane-q-user/profile.jpg",
+          });
+        }) */
         .then(() => {
-          console.log("It works" + ' ' + this.username);
+          console.log("It works" + " " + this.displayName);
           this.$router.replace({ name: "Secret" });
         })
         .catch((error) => (this.error = error));
     },
-
   },
 };
 </script>

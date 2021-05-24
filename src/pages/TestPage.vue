@@ -192,6 +192,7 @@ export default {
       hoursAllocated: null,
       taskHours: null,
       projects: [],
+      projCreator: '',
 
       options: [
         "Angular",
@@ -215,18 +216,41 @@ export default {
 
   methods: {
     addNewProject() {
+       var user = firebase.auth().currentUser;
+      const userID = user.email;
       let newProject = {
         name: this.name,
         description: this.description,
         tech: this.tech,
         hoursAllocated: this.hoursAllocated,
         date: Date.now(),
+        projCreator: this.projCreator,
         tasks: this.tasks,
+        
         // userSpecificID: this.currentUSerID
       };
 
-      db.collection("projects")
-        .add(newProject)
+      var user = firebase.auth().currentUser;
+     
+     
+      
+
+      db.collection("users")
+        .doc(userID)
+        .collection("projects")
+        .doc(this.name)
+        .set(
+          {
+            projCreator: userID,
+            name: this.name,
+            description: this.description,
+            tech: this.tech,
+            hoursAllocated: this.hoursAllocated,
+            date: Date.now(),
+            tasks: this.tasks,
+          },
+          { merge: true }
+        )
         .then(function (docRef) {
           console.log("Document written with ID: ", docRef.id);
           console.log(newProject);
@@ -244,33 +268,15 @@ export default {
         id: new Date().valueOf(),
         taskName: this.newToDo,
         taskDescription: this.newTaskDescription,
-        status: false,
+        status: "TODO",
         taskHours: this.taskHours,
+        belongToProject: "",
       }),
         (this.newToDo = "");
       this.newTaskDescription = "";
     },
     deleteToDo(i) {
       this.tasks.splice(i, 1);
-    },
-
-    mounted() {
-      db.collection("projects").onSnapshot((snapshot) => {
-        snapshot.docChanges().forEach((change) => {
-          let projectsChange = change.doc.data();
-
-          if (change.type === "added") {
-            console.log("New project: ", projectsChange);
-            this.projects.unshift(projectsChange);
-          }
-          if (change.type === "modified") {
-            console.log("Modified project: ", projectsChange);
-          }
-          if (change.type === "removed") {
-            console.log("Removed project: ", projectsChange);
-          }
-        });
-      });
     },
   },
 };

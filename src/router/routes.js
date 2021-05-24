@@ -1,5 +1,7 @@
 import firebase from "firebase/app";
 import "firebase/auth";
+import Goodbye from "../components/Goodbye";
+
 
 
 const routes = [{
@@ -14,6 +16,8 @@ const routes = [{
         name: 'Board',
         component: () => import('pages/Board.vue')
       },
+
+
       {
         path: '/Test',
         name: 'Test',
@@ -40,6 +44,15 @@ const routes = [{
         component: () => import('src/pages/TestingPurpose.vue')
       },
       {
+        path: "/goodbye",
+        component: Goodbye,
+        props: route => ({
+          name: route.query.name,
+          description: route.query.description
+        })
+      },
+      
+       {
         path: '/Secret',
         meta: {
           requiresAuth: true
@@ -47,6 +60,7 @@ const routes = [{
         name: 'Secret',
         component: () => import('src/pages/Secret.vue')
       },
+
     ]
   },
 

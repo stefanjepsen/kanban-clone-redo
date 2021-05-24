@@ -40,9 +40,9 @@
             <q-input
               square
               clearable
-              v-model="username"
-              type="username"
-              label="Username"
+              v-model="displayName"
+              type="displayName"
+              label="displayName"
             >
               <template v-slot:prepend>
                 <q-icon name="person" />
@@ -108,7 +108,7 @@ export default {
   data() {
     return {
       email: "",
-      username: "",
+      displayName: "",
       password: "",
       error: "",
     };
