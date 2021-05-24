@@ -60,7 +60,7 @@
           </q-card-section>
 
           <q-card-section class="text-right q-pa-sm">
-            <q-btn to="/Login" color="amber" glossy label="To login" />
+            <q-btn to="/Login" class="bg-deep-purple-7" text-color="white" label="To login" />
           </q-card-section>
           <transition
             appear

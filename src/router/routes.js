@@ -48,7 +48,8 @@ const routes = [{
         component: Goodbye,
         props: route => ({
           name: route.query.name,
-          description: route.query.description
+          description: route.query.description,
+          hoursAllocated: route.query.hoursAllocated
         })
       },
       

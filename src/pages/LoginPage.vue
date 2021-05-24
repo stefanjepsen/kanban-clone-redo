@@ -73,7 +73,7 @@
         </q-card-section>
 
         <q-card-section class="text-right q-pa-sm">
-          <q-btn to="/Register" color="amber" glossy label="To Register" />
+          <q-btn to="/Register" class="bg-deep-purple-7" text-color="white" label="To Register" />
         </q-card-section>
       </q-card>
 

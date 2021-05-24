@@ -26,7 +26,7 @@
 
     <div class="col-10 offset-2">
       <div class="row q-gutter-xl justify-center">
-        <div class="col-2" style="background: grey">
+        <div class="col-2 q-pa-lg" style="background: grey">
           <h3 class="q-pa-sm">To do</h3>
 
           <draggable

@@ -1,7 +1,7 @@
 <template>
   <q-layout view="lHh Lpr lFf">
     <q-header elevated>
-      <q-toolbar>
+      <q-toolbar  class="bg-deep-purple-7">
         <q-btn
           flat
           dense
@@ -148,7 +148,7 @@ export default {
         var docRef = db.collection("users").doc(user.email);
         docRef.get().then((doc) => {
           if (doc.exists) {
-            console.log("Document data:", doc.data());
+            console.log("Nickname:", doc.data());
           } else {
             // doc.data() will be undefined in this case
           }

@@ -1,23 +1,57 @@
 <template>
   <q-page>
-    <div v-if="posts.length">
-      <q-card v-for="post in posts" :key="post.id">
-        <h4>{{ post.name }}</h4>
-        <p>{{ post.description }}</p>
-        <ul>
-          <li>comments {{ post.tasks }}</li>
-        </ul>
-        <router-link
-          class="link"
-          :to="{ path: '/goodbye', query: { name: post.name, description: post.description } }"
-          >Say goodbye</router-link
-        >
-        <br />
-     
-      </q-card>
+    <div class="col-10 offset-2">
+      <div class="row q-gutter-xl justify-center">
+        <div class="q-pa-md row items-start q-gutter-md">
+          <q-card
+            v-for="post in posts"
+            :key="post.id"
+            dark
+            bordered
+            class="bg-deep-purple-7"
+            text-color="white"
+          >
+            <q-card-section>
+              <div class="text-h5">{{ post.name }}</div>
+              <div class="text-subtitle2">{{ post.description }}</div>
+            </q-card-section>
+
+            <q-separator dark inset />
+
+            <q-card-section>
+              <q-btn
+                :to="{
+                  path: '/goodbye',
+                  query: { name: post.name, description: post.description, hoursAllocated: post.hoursAllocated },
+                }"
+                >To the project</q-btn
+              >
+            </q-card-section>
+          </q-card>
+        </div>
+      </div>
     </div>
-    <div v-else>
-      <p>There are currently no posts</p>
+
+    <div class="col-10 offset-2">
+      <div class="row q-gutter-xl justify-center">
+        <div v-if="posts.length"></div>
+
+        <div v-else>
+          <div class="q-pa-md">
+            <q-card class="my-card">
+              
+              <q-video style="height:40vh;" src="https://www.youtube.com/embed/xFrGuyw1V8s" />
+
+              <q-card-section>
+                <div class="text-h6">Sorry no projects found</div>
+                <q-btn to="/TestPage">Create some</q-btn>
+              </q-card-section>
+
+
+            </q-card>
+          </div>
+        </div>
+      </div>
     </div>
   </q-page>
 </template>
@@ -25,6 +59,7 @@
 <script>
 import firebase from "firebase";
 import { db, auth, museums } from "../boot/firebase";
+import "firebase/auth";
 export default {
   data() {
     return {
@@ -32,10 +67,19 @@ export default {
       posts: [],
     };
   },
+
   methods: {
-    getPosts: function () {
+    getPosts() {
+      var user = firebase.auth().currentUser;
+      var email;
+
+      if (user != null) {
+        email = user.email;
+      }
+
+      console.log(email);
       db.collectionGroup("projects")
-        .where("projCreator", "==", "kk@live.dkk")
+        .where("projCreator", "==", email)
         .onSnapshot((querySnapshot) => {
           let postsArray = [];
 
@@ -49,8 +93,23 @@ export default {
         });
     },
   },
+
   beforeMount() {
     this.getPosts();
+    var user = firebase.auth().currentUser;
+    var name, email, photoUrl, uid, emailVerified;
+
+    if (user != null) {
+      name = user.displayName;
+      email = user.email;
+      photoUrl = user.photoURL;
+      emailVerified = user.emailVerified;
+      uid = user.uid; // The user's ID, unique to the Firebase project. Do NOT use
+      // this value to authenticate with your backend server, if
+      // you have one. Use User.getToken() instead.
+    }
+
+    console.log(email);
   },
   mounted() {
     /*         db.collection("projects").doc('facebook')
@@ -71,7 +130,6 @@ export default {
 };
 </script>
 
-<style lang="scss">
-</style>
+<style lang="sass" scoped>
 
-export const dbMenuAdd = db.collection('menuItems');
+</style>

@@ -44,7 +44,7 @@
                       "
                       :rules="[(val) => val > 0]"
                       :min="0"
-                      :max="100"
+                      :max="420"
                       label
                       label-always
                       class="q-mt-lg"
@@ -166,7 +166,7 @@
                   class="q-ml-sm"
                   @click="addNewProject"
                   size="xl"
-                  to="/Secret"
+                  to="/Board"
                 />
               </q-stepper-navigation>
             </template>
@@ -192,7 +192,7 @@ export default {
       hoursAllocated: null,
       taskHours: null,
       projects: [],
-      projCreator: '',
+      projCreator: "",
 
       options: [
         "Angular",
@@ -216,7 +216,7 @@ export default {
 
   methods: {
     addNewProject() {
-       var user = firebase.auth().currentUser;
+      var user = firebase.auth().currentUser;
       const userID = user.email;
       let newProject = {
         name: this.name,
@@ -226,14 +226,11 @@ export default {
         date: Date.now(),
         projCreator: this.projCreator,
         tasks: this.tasks,
-        
+
         // userSpecificID: this.currentUSerID
       };
 
       var user = firebase.auth().currentUser;
-     
-     
-      
 
       db.collection("users")
         .doc(userID)
