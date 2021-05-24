@@ -1,7 +1,7 @@
 <template>
   <q-layout view="lHh Lpr lFf">
     <q-header elevated>
-      <q-toolbar  class="bg-deep-purple-7">
+      <q-toolbar class="bg-deep-purple-7">
         <q-btn
           flat
           dense
@@ -90,37 +90,12 @@
           >
         </q-item>
 
-        <q-item to="/test" clickable v-ripple exact>
-          <q-item-section avatar>
-            <q-icon name="how_to_reg" size="sm" />
-          </q-item-section>
-          <q-item-section class="text-h6 text-weight-bold">Test</q-item-section>
-        </q-item>
-
-        <q-item to="/Secret" clickable v-ripple exact>
-          <q-item-section avatar>
-            <q-icon name="how_to_reg" size="sm" />
-          </q-item-section>
-          <q-item-section class="text-h6 text-weight-bold"
-            >Secret</q-item-section
-          >
-        </q-item>
-
-        <q-item to="/TestPage" clickable v-ripple exact>
+        <q-item to="/ProjectCreationPage" clickable v-ripple exact>
           <q-item-section avatar>
             <q-icon name="lightbulb" class="lightbulb" size="sm" />
           </q-item-section>
           <q-item-section class="text-h6 text-weight-bold"
-            >Test Board Page</q-item-section
-          >
-        </q-item>
-
-        <q-item to="/TestingPurpose" clickable v-ripple exact>
-          <q-item-section avatar>
-            <q-icon name="lightbulb" class="lightbulb" size="sm" />
-          </q-item-section>
-          <q-item-section class="text-h6 text-weight-bold"
-            >Test Board Page</q-item-section
+            >Project creation page</q-item-section
           >
         </q-item>
       </q-list>

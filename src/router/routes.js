@@ -34,9 +34,12 @@ const routes = [{
         component: () => import('src/pages/RegisterPage.vue')
       },
       {
-        path: '/TestPage',
-        name: 'TestPage',
-        component: () => import('src/pages/TestPage.vue')
+        path: '/ProjectCreationPage',
+        meta: {
+          requiresAuth: true
+        },
+        name: 'ProjectCreationPage',
+        component: () => import('src/pages/ProjectCreationPage.vue')
       },
 /*       {
         path: '/TestingPurpose',

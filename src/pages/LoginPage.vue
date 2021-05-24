@@ -73,7 +73,12 @@
         </q-card-section>
 
         <q-card-section class="text-right q-pa-sm">
-          <q-btn to="/Register" class="bg-deep-purple-7" text-color="white" label="To Register" />
+          <q-btn
+            to="/Register"
+            class="bg-deep-purple-7"
+            text-color="white"
+            label="To Register"
+          />
         </q-card-section>
       </q-card>
 
@@ -82,7 +87,12 @@
         enter-active-class="animated fadeIn slow"
         leave-active-class="animated fadeOut slow"
       >
-        <q-card v-if="error" square class="shadow-24 q-mt-lg " style="width: 300px;" >
+        <q-card
+          v-if="error"
+          square
+          class="shadow-24 q-mt-lg"
+          style="width: 300px"
+        >
           <q-card-section>
             <div class="text-h6">Fejl 40</div>
           </q-card-section>
@@ -134,6 +144,4 @@ export default {
 .q-card {
   width: 360px;
 }
-
-
 </style>

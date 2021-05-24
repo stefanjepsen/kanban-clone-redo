@@ -44,7 +44,7 @@
 
               <q-card-section>
                 <div class="text-h6">Sorry no projects found</div>
-                <q-btn to="/TestPage">Create some</q-btn>
+                <q-btn to="/ProjectCreationPage">Create some</q-btn>
               </q-card-section>
 
 

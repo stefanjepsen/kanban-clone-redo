@@ -408,6 +408,7 @@ export default {
           console.error("Error adding document: ", error);
         });
       this.newTask = "";
+      this.newTaskDescription = "";
     },
   },
 };

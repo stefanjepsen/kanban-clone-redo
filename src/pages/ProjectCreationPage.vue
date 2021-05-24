@@ -54,7 +54,7 @@
               </div>
             </q-step>
 
-            <q-step
+ <!--            <q-step
               :name="2"
               title="Create tasks"
               icon="create_new_folder"
@@ -131,7 +131,7 @@
                   </q-card>
                 </div>
               </div>
-            </q-step>
+            </q-step> -->
             <br />
 
             <q-step :name="3" title="Create a project" icon="add_comment">
