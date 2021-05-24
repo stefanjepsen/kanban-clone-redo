@@ -120,7 +120,7 @@ export default {
         .signInWithEmailAndPassword(this.email, this.password)
         .then((data) => {
           console.log(data);
-          this.$router.replace({ name: "Secret" });
+          this.$router.replace({ name: "Board" });
         })
         .catch((error) => {
           this.error = error;

@@ -22,7 +22,7 @@
               <q-btn
                 :to="{
                   path: '/goodbye',
-                  query: { name: post.name, description: post.description, hoursAllocated: post.hoursAllocated },
+                  query: { name: post.name, description: post.description, hoursAllocated: post.hoursAllocated, tech: post.tech },
                 }"
                 >To the project</q-btn
               >

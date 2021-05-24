@@ -38,18 +38,19 @@ const routes = [{
         name: 'TestPage',
         component: () => import('src/pages/TestPage.vue')
       },
-      {
+/*       {
         path: '/TestingPurpose',
         name: 'TestingPurpose',
         component: () => import('src/pages/TestingPurpose.vue')
-      },
+      }, */
       {
         path: "/goodbye",
         component: Goodbye,
         props: route => ({
           name: route.query.name,
           description: route.query.description,
-          hoursAllocated: route.query.hoursAllocated
+          hoursAllocated: route.query.hoursAllocated,
+          tech: route.query.tech,
         })
       },
       

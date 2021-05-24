@@ -133,7 +133,7 @@ export default {
         }) */
         .then(() => {
           console.log("It works" + " " + this.displayName);
-          this.$router.replace({ name: "Secret" });
+          this.$router.replace({ name: "Board" });
         })
         .catch((error) => (this.error = error));
     },

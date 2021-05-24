@@ -1,9 +1,13 @@
 <template>
   <q-page>
     <div class="row q-gutter-xl">
-      <div class="col-10 offset-2">
-        <h5>Project Name:</h5>
-        <h4>{{ projectName }}</h4>
+      <div class="col-5 offset-2">
+        <h4>
+          Project Name: <strong>{{ projectName }} </strong>
+        </h4>
+        <h6>
+          Tech used for this project: <strong>{{ tech }} </strong>
+        </h6>
         <h6>
           How many hours for this project:<strong> {{ hoursAllocated }}</strong>
         </h6>
@@ -56,10 +60,12 @@
 
           <br />
           <q-btn
-          v-bind:disable="!newTaskDescription || !newTask "
+            v-bind:disable="!newTaskDescription || !newTask"
             @click="addNewTodo"
             color="primary"
-            class="ml-3">Add</q-btn>
+            class="ml-3"
+            >Add</q-btn
+          >
         </q-card>
       </div>
     </div>
@@ -238,6 +244,9 @@ export default {
     },
     hoursAllocated: {
       type: Number,
+    },
+    tech: {
+      type: String,
     },
   },
   //["name", "description"],
