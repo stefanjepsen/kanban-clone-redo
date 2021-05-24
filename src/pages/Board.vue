@@ -21,7 +21,7 @@
             <q-card-section>
               <q-btn
                 :to="{
-                  path: '/goodbye',
+                  path: '/Project',
                   query: { name: post.name, description: post.description, hoursAllocated: post.hoursAllocated, tech: post.tech },
                 }"
                 >To the project</q-btn

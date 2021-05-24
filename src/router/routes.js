@@ -1,6 +1,6 @@
 import firebase from "firebase/app";
 import "firebase/auth";
-import Goodbye from "../components/Goodbye";
+import Project from "../components/Project";
 
 
 
@@ -41,14 +41,14 @@ const routes = [{
         name: 'ProjectCreationPage',
         component: () => import('src/pages/ProjectCreationPage.vue')
       },
-/*       {
-        path: '/TestingPurpose',
-        name: 'TestingPurpose',
-        component: () => import('src/pages/TestingPurpose.vue')
-      }, */
+      /*       {
+              path: '/TestingPurpose',
+              name: 'TestingPurpose',
+              component: () => import('src/pages/TestingPurpose.vue')
+            }, */
       {
-        path: "/goodbye",
-        component: Goodbye,
+        path: "/Project",
+        component: Project,
         props: route => ({
           name: route.query.name,
           description: route.query.description,
@@ -56,8 +56,8 @@ const routes = [{
           tech: route.query.tech,
         })
       },
-      
-       {
+
+      {
         path: '/Secret',
         meta: {
           requiresAuth: true
