@@ -72,163 +72,152 @@
     <br />
     <br />
 
-    <div v-if="todos != ''">
-      <div class="col-10 offset-2">
-        <div class="row q-gutter-xl justify-center">
-          <div class="col-2" style="background: grey">
-            <h5 class="q-pa-lg">To do</h5>
+    <div class="col-10 offset-2">
+      <div class="row q-gutter-xl justify-center">
+        <div class="col-2" style="background: grey">
+          <h5 class="q-pa-lg">To do</h5>
 
-            <draggable
-              class="list-group kanban-column"
-              :list="todos"
-              group="tasks"
-              ghostClass="on-drag"
-              animation="400"
+          <draggable
+            class="list-group kanban-column"
+            :list="todos"
+            group="tasks"
+            ghostClass="on-drag"
+            animation="400"
+          >
+            <q-card
+              dark
+              bordered
+              class="bg-deep-purple-7 my-card cursor q-pa-xs q-mt-xs q-card-todo"
+              v-for="todo in todos"
+              :key="todo.id"
             >
-              <q-card
-                dark
-                bordered
-                class="bg-deep-purple-7 my-card cursor q-pa-xs q-mt-xs q-card-todo"
-                v-for="todo in todos"
-                :key="todo.id"
-              >
-                <q-card-section>
-                  <div class="text-h5">{{ todo.todo }}</div>
+              <q-card-section>
+                <div class="text-h5">{{ todo.todo }}</div>
 
-                  <div class="text-subtitle3">
-                    Task Description: <br />
-                    {{ todo.newTaskDescription }}
-                  </div>
-                </q-card-section>
+                <div class="text-subtitle3">
+                  Task Description: <br />
+                  {{ todo.newTaskDescription }}
+                </div>
+              </q-card-section>
 
-                <q-separator dark inset />
+              <q-separator dark inset />
 
-                <q-card-section>
-                  <div class="text-subtitle2">
-                    Hours calculated: <strong> {{ todo.taskHours }}</strong>
-                  </div>
-                  <q-btn color="red" @click="deleteItem(todo.id)">X</q-btn>
-                </q-card-section>
-              </q-card>
-            </draggable>
-          </div>
-
-          <div class="col-2" style="background: lightblue">
-            <h5 class="q-pa-lg">In Progress</h5>
-            <draggable
-              class="list-group kanban-column"
-              :list="inProgress"
-              group="tasks"
-              ghostClass="on-drag"
-              animation="400"
-            >
-              <q-card
-                dark
-                bordered
-                class="bg-deep-purple-7 my-card cursor q-pa-xs q-mt-xs q-card-todo"
-                v-for="todo in inProgress"
-                :key="todo.id"
-              >
-                <q-card-section>
-                  <div class="text-h5">{{ todo.todo }}</div>
-                  <div class="text-subtitle3">
-                    Task Description: <br />
-                    {{ todo.newTaskDescription }}
-                  </div>
-                </q-card-section>
-
-                <q-separator dark inset />
-
-                <q-card-section>
-                  <div class="text-subtitle2">
-                    Hours calculated: <strong> {{ todo.taskHours }}</strong>
-                  </div>
-                  <q-btn color="red" @click="deleteItem(todo.id)">X</q-btn>
-                </q-card-section>
-              </q-card>
-            </draggable>
-          </div>
-
-          <div class="col-2" style="background: teal">
-            <h5 class="q-pa-lg">Testing</h5>
-            <draggable
-              class="list-group kanban-column"
-              :list="testing"
-              group="tasks"
-              ghostClass="on-drag"
-              animation="400"
-            >
-              <q-card
-                dark
-                bordered
-                class="bg-deep-purple-7 my-card cursor q-pa-xs q-mt-xs q-card-todo"
-                v-for="todo in testing"
-                :key="todo.id"
-              >
-                <q-card-section>
-                  <div class="text-h5">{{ todo.todo }}</div>
-                  <div class="text-subtitle3">
-                    Task Description: <br />
-                    {{ todo.newTaskDescription }}
-                  </div>
-                </q-card-section>
-
-                <q-separator dark inset />
-
-                <q-card-section>
-                  <div class="text-subtitle2">
-                    Hours calculated: <strong> {{ todo.taskHours }}</strong>
-                  </div>
-                  <q-btn color="red" @click="deleteItem(todo.id)">X</q-btn>
-                </q-card-section>
-              </q-card>
-            </draggable>
-          </div>
-
-          <div class="col-2" style="background: pink">
-            <h5 class="q-pa-lg">Completed</h5>
-            <draggable
-              class="list-group kanban-column"
-              :list="completed"
-              group="tasks"
-              animation="400"
-              ghostClass="on-drag"
-            >
-              <q-card
-                dark
-                bordered
-                class="bg-deep-purple-7 my-card cursor q-pa-xs q-mt-xs q-card-todo"
-                v-for="todo in completed"
-                :key="todo.id"
-              >
-                <q-card-section>
-                  <div class="text-h5">{{ todo.todo }}</div>
-                  <div class="text-subtitle3">
-                    Task Description: <br />
-                    {{ todo.newTaskDescription }}
-                  </div>
-                </q-card-section>
-
-                <q-separator dark inset />
-
-                <q-card-section>
-                  <div class="text-subtitle2">
-                    Hours calculated: <strong> {{ todo.taskHours }}</strong>
-                  </div>
-                  <q-btn color="red" @click="deleteItem(todo.id)">X</q-btn>
-                </q-card-section>
-              </q-card>
-            </draggable>
-          </div>
+              <q-card-section>
+                <div class="text-subtitle2">
+                  Hours calculated: <strong> {{ todo.taskHours }}</strong>
+                </div>
+                <q-btn color="red" @click="deleteItem(todo.id)">X</q-btn>
+              </q-card-section>
+            </q-card>
+          </draggable>
         </div>
-      </div>
-    </div>
-    <div v-else>
-      <div class="col-10 offset-2">
-        <div class="row q-gutter-xl justify-center">
-          <div class="col-8 q-pa-md">
-            <h3>Oh no create some tasks 😢</h3>
-          </div>
+
+        <div class="col-2" style="background: lightblue">
+          <h5 class="q-pa-lg">In Progress</h5>
+          <draggable
+            class="list-group kanban-column"
+            :list="inProgress"
+            group="tasks"
+            ghostClass="on-drag"
+            animation="400"
+          >
+            <q-card
+              dark
+              bordered
+              class="bg-deep-purple-7 my-card cursor q-pa-xs q-mt-xs q-card-todo"
+              v-for="todo in inProgress"
+              :key="todo.id"
+            >
+              <q-card-section>
+                <div class="text-h5">{{ todo.todo }}</div>
+                <div class="text-subtitle3">
+                  Task Description: <br />
+                  {{ todo.newTaskDescription }}
+                </div>
+              </q-card-section>
+
+              <q-separator dark inset />
+
+              <q-card-section>
+                <div class="text-subtitle2">
+                  Hours calculated: <strong> {{ todo.taskHours }}</strong>
+                </div>
+                <q-btn color="red" @click="deleteItem(todo.id)">X</q-btn>
+              </q-card-section>
+            </q-card>
+          </draggable>
+        </div>
+
+        <div class="col-2" style="background: teal">
+          <h5 class="q-pa-lg">Testing</h5>
+          <draggable
+            class="list-group kanban-column"
+            :list="testing"
+            group="tasks"
+            ghostClass="on-drag"
+            animation="400"
+          >
+            <q-card
+              dark
+              bordered
+              class="bg-deep-purple-7 my-card cursor q-pa-xs q-mt-xs q-card-todo"
+              v-for="todo in testing"
+              :key="todo.id"
+            >
+              <q-card-section>
+                <div class="text-h5">{{ todo.todo }}</div>
+                <div class="text-subtitle3">
+                  Task Description: <br />
+                  {{ todo.newTaskDescription }}
+                </div>
+              </q-card-section>
+
+              <q-separator dark inset />
+
+              <q-card-section>
+                <div class="text-subtitle2">
+                  Hours calculated: <strong> {{ todo.taskHours }}</strong>
+                </div>
+                <q-btn color="red" @click="deleteItem(todo.id)">X</q-btn>
+              </q-card-section>
+            </q-card>
+          </draggable>
+        </div>
+
+        <div class="col-2" style="background: pink">
+          <h5 class="q-pa-lg">Completed</h5>
+          <draggable
+            class="list-group kanban-column"
+            :list="completed"
+            group="tasks"
+            animation="400"
+            ghostClass="on-drag"
+          >
+            <q-card
+              dark
+              bordered
+              class="bg-deep-purple-7 my-card cursor q-pa-xs q-mt-xs q-card-todo"
+              v-for="todo in completed"
+              :key="todo.id"
+            >
+              <q-card-section>
+                <div class="text-h5">{{ todo.todo }}</div>
+                <div class="text-subtitle3">
+                  Task Description: <br />
+                  {{ todo.newTaskDescription }}
+                </div>
+              </q-card-section>
+
+              <q-separator dark inset />
+
+              <q-card-section>
+                <div class="text-subtitle2">
+                  Hours calculated: <strong> {{ todo.taskHours }}</strong>
+                </div>
+                <q-btn color="red" @click="deleteItem(todo.id)">X</q-btn>
+              </q-card-section>
+            </q-card>
+          </draggable>
         </div>
       </div>
     </div>
